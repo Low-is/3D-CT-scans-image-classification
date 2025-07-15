@@ -24,7 +24,6 @@ Using publicly available CT scan images from the [Cancer Imaging Archive](https:
 
 
 
-
 Citations:
 - [Cancer Imaging Archives](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/)
 - [Cleveland Clinic](https://my.clevelandclinic.org/health/diseases/4375-lung-cancer)
