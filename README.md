@@ -11,4 +11,4 @@ A typical CNN has 3 major building blocks:
      - The biggest values from each region along the image are retained.
 3. Fully connected (Dense) layer:
      - After enough convolution + pooling layers, next you flatten the 2D feature maps into a 1D vector.
-     - A fully connected layer is where each neuron receives input from all neurons in the previous layer. Flattening converts the multi-dimensiona output of the convolutional and pooling layers into a one-dimensional vector, preparing it for inout into a fully-connected (dense) layer. 
+     - A fully connected layer is where each neuron receives input from all neurons in the previous layer. Flattening converts the multi-dimensional output of the convolutional and pooling layers into a one-dimensional vector, preparing it for inout into a fully-connected (dense) layer. 
