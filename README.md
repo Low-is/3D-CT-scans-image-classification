@@ -26,8 +26,8 @@ Using publicly available CT scan images from the [Cancer Imaging Archive](https:
 
 
 Citations:
--[Cancer Imaging Archives](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/)
--[Clevelan Clinic](https://my.clevelandclinic.org/health/diseases/4375-lung-cancer)
--Chaunzwa, TL. et al. Deep learning classificaton of lung cancer histology using CT images. Scientific Reports. 11, 5471 (2021)
--Ilié, M. & Hofman, P. Pros: Can tissue biopsy be replaced by liquid biopsy?. Transl. Lung Cancer Res. 5, 420–423 (2016)
--Zhao, B. et al. Reproducibility of radiomics for deciphering tumor phenotype with imaging. Sci. Rep. 6, 23428 (2016)
+- [Cancer Imaging Archives](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/)
+- [Cleveland Clinic](https://my.clevelandclinic.org/health/diseases/4375-lung-cancer)
+- Chaunzwa, T.L. et al. *Deep learning classification of lung cancer histology using CT images.* Scientific Reports, **11**, 5471 (2021).
+- Ilié, M. & Hofman, P. *Pros: Can tissue biopsy be replaced by liquid biopsy?* Translational Lung Cancer Research, **5**, 420–423 (2016).
+- Zhao, B. et al. *Reproducibility of radiomics for deciphering tumor phenotype with imaging.* Scientific Reports, **6**, 23428 (2016).
