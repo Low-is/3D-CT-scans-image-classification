@@ -32,8 +32,37 @@ def z_normalize(volume):
     std = volume.std()
     return (volume - mean) / std if std != 0 else volume - mean
 
+# Define your target fixed shape (height, width, depth)
+TARGET_SHAPE = (128, 128, 64)
+
+def pad_volume(volume, target_shape=TARGET_SHAPE):
+    """
+    Pads a 3D volume to the target shape with zeros.
+    volume shape assumed (depth, height, width)
+    Will reorder axes to (height, width, depth) after padding for TF/Keras.
+    """
+    d, h, w = volume.shape
+    
+    pad_d = max(target_shape[2] - d, 0)
+    pad_h = max(target_shape[0] - h, 0)
+    pad_w = max(target_shape[1] - w, 0)
+    
+    # Pad widths in the order: (depth, height, width)
+    # pad_width format: ((before_depth, after_depth), (before_height, after_height), (before_width, after_width))
+    pad_widths = (
+        (0, pad_d),
+        (0, pad_h),
+        (0, pad_w)
+    )
+    
+    volume_padded = np.pad(volume, pad_width=pad_widths, mode='constant', constant_values=0)
+    
+    # After padding, reorder axes to (height, width, depth)
+    volume_padded = np.transpose(volume_padded, (1, 2, 0))
+    
+    return volume_padded
+
 # Build volume & label lists
-patient_volumes = {}
 volumes = []
 labels = []
 
@@ -43,7 +72,8 @@ for subtype, patients in dicom_files_grouped.items():
     for patient, files in patients.items():
         volume = load_patient_volume(files)
         volume = z_normalize(volume)
-        volume = np.expand_dims(volume, axis=-1)  # Add channel dim
+        volume = pad_volume(volume)  # (height, width, depth)
+        volume = np.expand_dims(volume, axis=-1)  # Add channel dim: (height, width, depth, 1)
         volumes.append(volume)
         labels.append(subtype_to_label[subtype])
 
