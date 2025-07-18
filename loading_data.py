@@ -32,35 +32,29 @@ def z_normalize(volume):
     std = volume.std()
     return (volume - mean) / std if std != 0 else volume - mean
 
-# Define your target fixed shape (height, width, depth)
-TARGET_SHAPE = (128, 128, 64)
+# Cropping and adding padding to create homogenous volumes
+def crop_depth(volume, target_depth=64):
+    current_depth = volume.shape[2]
+    if current_depth > target_depth:
+        start = (current_depth - target_depth)//2
+        return volume[:,:,start:start + target_depth]
+        return volume
 
-def pad_volume(volume, target_shape=TARGET_SHAPE):
-    """
-    Pads a 3D volume to the target shape with zeros.
-    volume shape assumed (depth, height, width)
-    Will reorder axes to (height, width, depth) after padding for TF/Keras.
-    """
-    d, h, w = volume.shape
-    
-    pad_d = max(target_shape[2] - d, 0)
-    pad_h = max(target_shape[0] - h, 0)
-    pad_w = max(target_shape[1] - w, 0)
-    
-    # Pad widths in the order: (depth, height, width)
-    # pad_width format: ((before_depth, after_depth), (before_height, after_height), (before_width, after_width))
-    pad_widths = (
-        (0, pad_d),
-        (0, pad_h),
-        (0, pad_w)
-    )
-    
-    volume_padded = np.pad(volume, pad_width=pad_widths, mode='constant', constant_values=0)
-    
-    # After padding, reorder axes to (height, width, depth)
-    volume_padded = np.transpose(volume_padded, (1, 2, 0))
-    
-    return volume_padded
+def pad_depth(volume, target_depth=64):
+    current_depth = volume.shape[2]
+    if current_depth < target_depth:
+        pad_before = (target_depth - current_depth) // 2
+        pad_after = target_depth - current_depth - pad_before
+        volume = np.pad(volume, ((0, 0), (0, 0), (pad_before, pad_after)), mode='constant')
+    return volume
+
+def resize_depth(volume, target_depth=64)
+if volume.shape[2] > target_depth:
+    return crop_depth(volume, target_depth)
+elif volume.shape[2] < target_depth:
+    return pad_depth(volume, target_depth)
+    volume = np.transpose(volume, (1,2,0)) # (height, width, depth)
+    return volume
 
 # Build volume & label lists
 volumes = []
@@ -72,7 +66,7 @@ for subtype, patients in dicom_files_grouped.items():
     for patient, files in patients.items():
         volume = load_patient_volume(files)
         volume = z_normalize(volume)
-        volume = pad_volume(volume)  # (height, width, depth)
+        volume = resize_depth(volume)  # (height, width, depth)
         volume = np.expand_dims(volume, axis=-1)  # Add channel dim: (height, width, depth, 1)
         volumes.append(volume)
         labels.append(subtype_to_label[subtype])
