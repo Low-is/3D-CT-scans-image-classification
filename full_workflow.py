@@ -3,8 +3,11 @@ import numpy as np
 import os
 from collections import defaultdict
 from sklearn.model_selection import train_test_split
+from skimage.transform import resize # make sure to have scikit-image installed
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
+import keras
+from keras import layers
 
 # Group files by subtype and patient
 dicom_files_grouped = defaultdict(lambda: defaultdict(list))
