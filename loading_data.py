@@ -48,13 +48,9 @@ def pad_depth(volume, target_depth=64):
         volume = np.pad(volume, ((0, 0), (0, 0), (pad_before, pad_after)), mode='constant')
     return volume
 
-def resize_depth(volume, target_depth=64)
-if volume.shape[2] > target_depth:
-    return crop_depth(volume, target_depth)
-elif volume.shape[2] < target_depth:
-    return pad_depth(volume, target_depth)
-    volume = np.transpose(volume, (1,2,0)) # (height, width, depth)
-    return volume
+def resize_volume(volume, target_shape=(128, 128, 64)):
+    volume = resize(volume, target_shape, mode='constant', preserve_range=True, anti_aliasing=True)
+    return volume.astype(np.float32)
 
 # Build volume & label lists
 volumes = []
@@ -66,7 +62,7 @@ for subtype, patients in dicom_files_grouped.items():
     for patient, files in patients.items():
         volume = load_patient_volume(files)
         volume = z_normalize(volume)
-        volume = resize_depth(volume)  # (height, width, depth)
+        volume = resize_volume(volume)  # (height, width, depth)
         volume = np.expand_dims(volume, axis=-1)  # Add channel dim: (height, width, depth, 1)
         volumes.append(volume)
         labels.append(subtype_to_label[subtype])
@@ -151,7 +147,7 @@ model.compile(
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
     "3d_image_classification.keras", save_best_only=True
 )
-early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=15)
+early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_accuracy", patience=15, mode="max")
 
 # Train the model, doing validation at the end of each epoch
 epochs = 100
