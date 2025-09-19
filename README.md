@@ -33,6 +33,11 @@ The model achieved:
 ![model](3D_model.png)
 
 
+
+These results indicate that the model can learn patterns from 3D CT volumes, achieving moderate training accuracy. However, the validation performance remains low, suggesting overfitting and limited generalization. Future improvements could include increasing the dataset size, applying more robust data augmentation, incorporating additional regularization techniques such as L2 weight decay, and experimenting with alternative model architectures or hyperparameters to improve generalizability and overall predictive performance.
+
+
+
 Citations:
 - [Cancer Imaging Archives](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/)
 - [Cleveland Clinic](https://my.clevelandclinic.org/health/diseases/4375-lung-cancer)
