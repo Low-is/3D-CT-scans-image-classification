@@ -23,6 +23,13 @@ In clinical settings, histological classification is typically performed using m
 Using publicly available CT scan images from the [Cancer Imaging Archive](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/), 251,135 lung cancer images of 4 distinct tissue histopathological diagnosis (Adenocarcinoma, Small Cell Carcinoma, Large Cell Carcinoma, and Squamous Cell Carcinoma) across 436 studies and 355 subjects were used for multi-class image classification. The hypothesis is that using CNN, 4 distinct tissue histopathological cancers can be classified from 3D CT images.  
 
 
+## Performance Metrics
+The model achieved:
+Training Accuracy: 75%
+Training Loss: 0.90
+Validation Accuracy: 31% (still needs improvement)
+Validation Loss: 1.99 (still needs improvement)
+
 
 
 Citations:
