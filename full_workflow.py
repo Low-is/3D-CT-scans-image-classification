@@ -152,13 +152,23 @@ checkpoint_cb = keras.callbacks.ModelCheckpoint(
 )
 early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_accuracy", patience=15, mode="max")
 
+class_weights = compute_class_weight(
+    class_weight="balanced",
+    classes=np.unique(y_train),
+    y=y_train
+)
+
+class_weights_dict = dict(enumerate(class_weights))
+
 # Train the model, doing validation at the end of each epoch
-epochs = 100
+epochs = 50
 history = model.fit(
     x_train,
     y_train_cat,
     validation_data=(x_test, y_test_cat),
     epochs=epochs,
+    batch_size=2,
+    class_weight=class_weights_dict,
     shuffle=True,
     verbose=2,
     callbacks=[checkpoint_cb, early_stopping_cb],
