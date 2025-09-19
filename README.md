@@ -30,7 +30,7 @@ The model achieved:
 - Validation Accuracy: 31% (still needs improvement)
 - Validation Loss: 1.99 (still needs improvement)
 
-[!model](3D_model.png)
+![model](3D_model.png)
 
 
 Citations:
