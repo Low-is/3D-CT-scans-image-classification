@@ -11,7 +11,7 @@ A typical CNN has 3 major building blocks:
      - The biggest values from each region along the image are retained.
 3. Fully connected (Dense) layer:
      - After enough convolution + pooling layers, next you flatten the 2D feature maps into a 1D vector.
-     - A fully connected layer is where each neuron receives input from all neurons in the previous layer. Flattening converts the multi-dimensional output of the convolutional and pooling layers into a one-dimensional vector, preparing it for inout into a fully-connected (dense) layer. 
+     - A fully connected layer is where each neuron receives input from all neurons in the previous layer. Flattening converts the multi-dimensional output of the convolutional and pooling layers into a one-dimensional vector, preparing it for input into a fully-connected (dense) layer. 
 
 Lung cancer is hte 3rd most common cancer in the U.S. and is the leading cause of cancer-related deaths. It is a hetergenous disease categorized into two main kinds:
 - Non-small cell lung cancer (NSCLC)
@@ -21,6 +21,7 @@ NSCLC is the most prevalent type of lung cancer cases. Major histological types 
 In clinical settings, histological classification is typically performed using manual examination of tissue sampels under a standard light microscope. While this method is considered reliable, biopsies can sometimes miss the full range of morhphological and phenotypic variations present in the tumor to due inter- and intra-tumor heterogeneity. Due to the complexity of lung cancer classification and the limitations in current practices, there is a need for innovative clinical assessment tools to, such as prediction models tht can help guide, speed up, or refine treatment decisions, espeically in early or inaccessible settings. 
 
 Using publicly available CT scan images from the [Cancer Imaging Archive](https://www.cancerimagingarchive.net/collection/lung-pet-ct-dx/), 251,135 lung cancer images of 4 distinct tissue histopathological diagnosis (Adenocarcinoma, Small Cell Carcinoma, Large Cell Carcinoma, and Squamous Cell Carcinoma) across 436 studies and 355 subjects were used for multi-class image classification. The hypothesis is that using CNN, 4 distinct tissue histopathological cancers can be classified from 3D CT images.  
+
 
 
 
