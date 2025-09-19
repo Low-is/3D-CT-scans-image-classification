@@ -1,3 +1,10 @@
+# Visualize
+plt.imshow(volume[slice_index], cmap="gray")
+plt.title(f"Normalized CT Volume Slice {slice_index}")
+plt.axis('off')
+plt.show()
+
+
 import keras
 from keras import layers
 # Defining a 3D convolutional neural network
@@ -26,7 +33,7 @@ def get_model(width=128, height=128, depth=64):
     x = layers.Dense(units=512, activation="relu")(x)
     x = layers.Dropout(0.3)(x)
 
-    outputs = layers.Dense(units=1, activation="sigmoid")(x)
+    outputs = layers.Dense(num_classes, activation="softmax")(x)
 
     # Define the model.
     model = keras.Model(inputs, outputs, name="3dcnn")
@@ -36,59 +43,3 @@ def get_model(width=128, height=128, depth=64):
 # Build model.
 model = get_model(width=128, height=128, depth=64)
 model.summary()
-
-
-# Compile model.
-initial_learning_rate = 0.0001
-lr_schedule = keras.optimizers.schedules.ExponentialDecay(
-    initial_learning_rate, decay_steps=100000, decay_rate=0.96, staircase=True
-)
-model.compile(
-    loss="categorical_crossentropy",
-    optimizer=keras.optimizers.Adam(learning_rate=lr_schedule),
-    metrics=["accuracy"],
-    run_eagerly=True,
-)
-
-
-# Define callbacks.
-checkpoint_cb = keras.callbacks.ModelCheckpoint(
-    "3d_image_classification.keras", save_best_only=True
-)
-early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=15, mode="max")
-
-# Train the model, doing validation at the end of each epoch
-epochs = 100
-history = model.fit(
-    x_train,
-    y_train_cat,
-    validation_data=(x_test, y_test_cat),
-    epochs=epochs,
-    shuffle=True,
-    verbose=2,
-    callbacks=[checkpoint_cb, early_stopping_cb],
-)
-
-
-# Plot accuracy
-plt.figure(figsize=(12, 4))
-
-plt.subplot(1, 2, 1)
-plt.plot(history.history['accuracy'], label='Train Accuracy')
-plt.plot(history.history['val_accuracy'], label='Val Accuracy')
-plt.title('Training and Validation Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
-
-# Plot loss
-plt.subplot(1, 2, 2)
-plt.plot(history.history['loss'], label='Train Loss')
-plt.plot(history.history['val_loss'], label='Val Loss')
-plt.title('Training and Validation Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-
-plt.tight_layout()
-plt.show()
