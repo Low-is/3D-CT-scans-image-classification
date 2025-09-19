@@ -25,11 +25,12 @@ Using publicly available CT scan images from the [Cancer Imaging Archive](https:
 
 ## Performance Metrics
 The model achieved:
-Training Accuracy: 75%
-Training Loss: 0.90
-Validation Accuracy: 31% (still needs improvement)
-Validation Loss: 1.99 (still needs improvement)
+- Training Accuracy: 75%
+- Training Loss: 0.90
+- Validation Accuracy: 31% (still needs improvement)
+- Validation Loss: 1.99 (still needs improvement)
 
+[!model](3D_model.png)
 
 
 Citations:
