@@ -1,1 +1,71 @@
+# =========================
+# DATA SETTINGS
+# =========================
+data:
+  dataset_path: "\\ifs.win.uthscsa.edu\M1509-AhujaS\MainShare\Lois\Lois_Local\Dr_M\Projects\Rashmi\Lung-PET-CT-Dx\Lung-PET-CT-Dx"
+  image_shape: [128, 128, 64]
+  num_classes: 4
+  file_type: ".dcm"
 
+# =========================
+# PREPROCESSING
+# =========================
+preprocessing:
+  normalize: "z-score"
+  resize_method: "trilinear"
+  crop_or_pad: true
+
+# =========================
+# TRAIN/TEST SPLIT
+# =========================
+split:
+  test_size: 0.3
+  random_state: 42
+  stratify: true
+
+# =========================
+# AUGMENTATION
+# =========================
+augmentation:
+  rotation: 10
+  flip: true
+  noise_std: 0.01
+  intensity_shift: 0.1
+
+# =========================
+# MODEL ARCHITECTURE
+# =========================
+model:
+  type: "3D_CNN"
+  filters: [64, 64, 128, 256]
+  kernel_size: 3
+  dropout: 0.3
+  dense_units: 512
+
+# =========================
+# TRAINING
+# =========================
+training:
+  batch_size: 4
+  epochs: 50
+  learning_rate: 0.0001
+  optimizer: "adam"
+  loss: "categorical_crossentropy"
+
+# =========================
+# CALLBACKS
+# =========================
+callbacks:
+  early_stopping:
+    patience: 10
+  reduce_lr:
+    factor: 0.5
+    patience: 5
+
+# =========================
+# OUTPUT
+# =========================
+output:
+  model_dir: "models/"
+  save_best_only: true
+  log_dir: "logs/"
