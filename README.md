@@ -15,6 +15,7 @@ This project is designed as a generalizable framework for 3D CT scan classificat
 For this lung subtype example, CT scan data should be organized by **class label (subtype/diagnosis)**, with each patient containing their own DICOM image folder.
 
 **Example Below:**
+
 Class → Patient → slices
 
 
