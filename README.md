@@ -33,6 +33,27 @@ from evaluation.metrics import evalulate_model
 results = evalulate_model(model, x_test, y_test_cat)
 ```
 
+# Plot results
+```
+# Python
+from evaluation.plots import (
+plot_training_history,
+plot_confusion_matrix,
+plot_volume_slices
+)
+
+# Training curves
+plot_training_history(history)
+
+# Confusion matrix
+import numpy as np
+
+y_pred = np.argmax(model.predict(x_test), axis=1)
+y_true = np.argmax(y_test_cat, axis=1)
+
+plot_confusion_matrix(y_true, y_pred)
+```
+
 Convolutional neural networks (CNNs) is a type of deep learning model that is best for image processing. CNNs uses a system that looks at small patches of an image, finding patterns (like edges, textures, shapes, etc.) and then builds up a complex understanding from simple patterns, image classification. 
 
 A typical CNN has 3 major building blocks:
