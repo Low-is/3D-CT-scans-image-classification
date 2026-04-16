@@ -39,7 +39,9 @@ plot_volume_slices(x_train[0])
 ```
 # Python
 from evaluation.metrics import evalulate_model
+from tensorflow import keras
 
+model = keras.models.load_model("3dcnn_final.keras")
 results = evalulate_model(model, x_test, y_test_cat)
 ```
 
