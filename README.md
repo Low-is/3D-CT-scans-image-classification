@@ -26,23 +26,43 @@ python training/train.py
 ```
 
 
-# Visualizae CT scan slices (optional)
+# Load trained model + evaluation data
 ```
 # Python
-from evaluation.plots import plot_volume_slices
-
-plot_volume_slices(x_train[0])
-```
-
-
-# Evaluating model performance
-```
-# Python
-from evaluation.metrics import evalulate_model
+import numpy as np
+import json
 from tensorflow import keras
 
 model = keras.models.load_model("3dcnn_final.keras")
-results = evalulate_model(model, x_test, y_test_cat)
+
+x_test = np.load("x_test.npy")
+y_test = np.load("y_test.npy")
+y_test_cat = np.load("y_test_cat.npy")
+
+with open("history.json", "r") as f:
+history = json.load(f)
+```
+
+
+# Visualizae CT scan slices (optional)
+```
+# Python
+from dataset import build_dataset
+from evaluation.plots import plot_volume_slices
+
+x, y = build_dataset()  
+
+plot_volume_slices(x[0])
+```
+
+
+# Evalulate model performance
+```
+# Python
+from evaluation.metrics import evaluate_model
+
+results = evaluate_model(model, x_test, y_test_cat)
+print(results)
 ```
 
 
@@ -51,19 +71,19 @@ results = evalulate_model(model, x_test, y_test_cat)
 # Python
 from evaluation.plots import (
 plot_training_history,
-plot_confusion_matrix,
-plot_volume_slices
+plot_confusion_matrix
 )
+
+import numpy as np
 
 # Training curves
 plot_training_history(history)
 
-# Confusion matrix
-import numpy as np
-
+# Predictions
 y_pred = np.argmax(model.predict(x_test), axis=1)
 y_true = np.argmax(y_test_cat, axis=1)
 
+# Confusion matrix
 plot_confusion_matrix(y_true, y_pred)
 ```
 
