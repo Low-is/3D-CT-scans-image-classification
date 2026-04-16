@@ -1,3 +1,4 @@
+import json
 import numpy as np
 import keras
 from keras.utils import to_categorical
@@ -75,6 +76,9 @@ def main():
     np.save("y_train.npy", y_train)
     np.save("y_test.npy", y_test)
     np.save("y_test_cat.npy", y_test_cat)
+    
+    with open("history.json", "w") as f:
+        json.dump(history.history, f)
 
 
 if __name__ == "__main__":
