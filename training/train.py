@@ -134,7 +134,7 @@ def main():
     # -----------------------
     # Save final model
     # -----------------------
-    model.save("3dcnn_final.keras")
+    model.save("3dcnn_final.keras") # writes trained model (architecture + weights + optimizer state) to disk
 
 
 if __name__ == "__main__":
