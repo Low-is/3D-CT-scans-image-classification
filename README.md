@@ -1,11 +1,11 @@
 # Multi-image classification with 3D CT scans using CNN
 
 # Clone repo
+
 ```
 # Bash
 git clone https://github.com/ow-is/3D-CT-scans-image-classification.git
 cd 3D-CT-scans-image-classification
-
 ```
 
 Convolutional neural networks (CNNs) is a type of deep learning model that is best for image processing. CNNs uses a system that looks at small patches of an image, finding patterns (like edges, textures, shapes, etc.) and then builds up a complex understanding from simple patterns, image classification. 
