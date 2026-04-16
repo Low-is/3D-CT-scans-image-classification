@@ -18,42 +18,6 @@ For this lung subtype example, CT scan data should be organized by **class label
 
 Class → Patient → slices
 
-# Build dataset + preprocess CT scans
-```
-# Python
-from dataset import build_dataset
-
-# This returns:
-# x = (N, 128, 128, 64, 1)
-# y = (N,)
-x, y = build_dataset()
-```
-
-
-# Load and preprocess a single CT scan
-```
-# Python
-from preprocessing import load_patient_volume, z_normalize, resize_volume
-import numpy as np
-
-# files = list of .dcm paths for ONE patient
-volume = load_patient_volume(files)
-volume = z_normalize(volume)
-volume = resize_volume(volume)
-volume = np.expand_dims(volume, axis=-1)
-```
-
-
-# Build model 
-```
-# Python
-from models.cnn3d import get_model
-
-model = get_model(width=128, height=128, depth=64, num_classes=4) # or use configs from config.yaml
-
-model.summary() # returning model summary 
-```
-
 
 # Training the model
 ```
