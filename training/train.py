@@ -8,10 +8,10 @@ from sklearn.utils.class_weight import compute_class_weight
 from models.cnn_3d import get_model
 
 # ------------------------------------------------------------------
-# ASSUMES YOU ALREADY HAVE THESE FUNCTIONS IN YOUR PROJECT
+# ASSUMES YOU ALREADY HAVE THESE FUNCTIONS IN ROOT FOLDER 
 # ------------------------------------------------------------------
 from preprocessing import load_patient_volume, z_normalize, resize_volume
-from dataset import dicom_files_grouped  # your dictionary structure
+from dataset import dicom_files_grouped  # dictionary structure
 # ------------------------------------------------------------------
 
 
