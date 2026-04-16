@@ -7,53 +7,19 @@ from sklearn.utils.class_weight import compute_class_weight
 # As long as Python knows the root folder '3D-CT-scans-image-classification/...', other scripts and their functions can be accessed
 from models.cnn_3d import get_model
 
-# ------------------------------------------------------------------
-# ASSUMES YOU ALREADY HAVE THESE FUNCTIONS IN ROOT FOLDER 
-# ------------------------------------------------------------------
-from preprocessing import load_patient_volume, z_normalize, resize_volume
-from dataset import dicom_files_grouped  # dictionary structure
-# ------------------------------------------------------------------
-
-
-def build_dataset():
-    volumes = []
-    labels = []
-
-    subtype_to_label = {
-        subtype: idx for idx, subtype in enumerate(dicom_files_grouped.keys())
-    }
-
-    for subtype, patients in dicom_files_grouped.items():
-        for patient, files in patients.items():
-
-            volume = load_patient_volume(files)
-            volume = z_normalize(volume)
-            volume = resize_volume(volume)
-
-            volume = np.expand_dims(volume, axis=-1)  # (H, W, D, 1)
-
-            volumes.append(volume)
-            labels.append(subtype_to_label[subtype])
-
-    x = np.array(volumes)
-    y = np.array(labels)
-
-    return x, y
+from dataset import build_dataset
+from models.cnn_3d import get_model
 
 
 def main():
 
     # -----------------------
-    # Build dataset
+    # LOAD DATA
     # -----------------------
     x, y = build_dataset()
 
-    # -----------------------
-    # Train/test split
-    # -----------------------
     x_train, x_test, y_train, y_test = train_test_split(
-        x,
-        y,
+        x, y,
         test_size=0.3,
         random_state=42,
         stratify=y
@@ -65,34 +31,22 @@ def main():
     num_classes = y_train_cat.shape[1]
 
     # -----------------------
-    # Class weights
+    # CLASS WEIGHTS
     # -----------------------
     class_weights = compute_class_weight(
         class_weight="balanced",
         classes=np.unique(y_train),
         y=y_train
     )
-
     class_weights_dict = dict(enumerate(class_weights))
 
     # -----------------------
-    # Build model
+    # MODEL
     # -----------------------
-    model = get_model(
-        width=128,
-        height=128,
-        depth=64,
-        num_classes=num_classes
-    )
+    model = get_model(128, 128, 64, num_classes)
 
-    # -----------------------
-    # Compile model
-    # -----------------------
     lr_schedule = keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=1e-4,
-        decay_steps=100000,
-        decay_rate=0.96,
-        staircase=True
+        1e-4, decay_steps=100000, decay_rate=0.96
     )
 
     model.compile(
@@ -102,39 +56,20 @@ def main():
     )
 
     # -----------------------
-    # Callbacks
-    # -----------------------
-    checkpoint_cb = keras.callbacks.ModelCheckpoint(
-        "3dcnn_best.keras",
-        save_best_only=True,
-        monitor="val_accuracy"
-    )
-
-    early_stop_cb = keras.callbacks.EarlyStopping(
-        monitor="val_accuracy",
-        patience=15,
-        mode="max"
-    )
-
-    # -----------------------
-    # Train
+    # TRAIN
     # -----------------------
     history = model.fit(
-        x_train,
-        y_train_cat,
+        x_train, y_train_cat,
         validation_data=(x_test, y_test_cat),
         epochs=50,
         batch_size=2,
-        shuffle=True,
-        class_weight=class_weights_dict,
-        verbose=2,
-        callbacks=[checkpoint_cb, early_stop_cb]
+        class_weight=class_weights_dict
     )
 
     # -----------------------
-    # Save final model
+    # SAVE
     # -----------------------
-    model.save("3dcnn_final.keras") # writes trained model (architecture + weights + optimizer state) to disk
+    model.save("3dcnn_final.keras")
 
 
 if __name__ == "__main__":
