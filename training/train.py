@@ -70,6 +70,11 @@ def main():
     # SAVE
     # -----------------------
     model.save("3dcnn_final.keras")
+    np.save("x_train.npy", x_train)
+    np.save("x_test.npy", x_test)
+    np.save("y_train.npy", y_train)
+    np.save("y_test.npy", y_test)
+    np.save("y_test_cat.npy", y_test_cat)
 
 
 if __name__ == "__main__":
