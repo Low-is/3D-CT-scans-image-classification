@@ -18,12 +18,47 @@ For this lung subtype example, CT scan data should be organized by **class label
 
 Class → Patient → slices
 
+# Load and preprocess a single CT scan
+```
+# Python
+from preprocessing import load_patient_volume, z_normalize, resize_volume
+import numpy as np
+
+volume = load_patient_volume(files)
+volume = z_normalize(volume)
+volume = resize_volume(volume)
+
+# Add channel dimension for 3D CNN
+volume = np.expand_dims(volume, axis=-1)
+```
+
+
+# Build model manually (optional)
+```
+# Python
+from models.cnn3d import get_model
+
+model = get_model(width=128, height=128, depth=64, num_classes=4) # or use configs from config.yaml
+
+model.summary() # returning model summary 
+```
+
 
 # Training the model
 ```
 # Bash
 python training/train.py
 ```
+
+
+# Visualizae CT scan slices (optional)
+```
+# Python
+from evaluation.plots import plot_volume_slices
+
+plot_volume_slices(x_train[0])
+```
+
 
 # Evaluating model performance
 ```
@@ -32,6 +67,7 @@ from evaluation.metrics import evalulate_model
 
 results = evalulate_model(model, x_test, y_test_cat)
 ```
+
 
 # Plot results
 ```
@@ -53,6 +89,7 @@ y_true = np.argmax(y_test_cat, axis=1)
 
 plot_confusion_matrix(y_true, y_pred)
 ```
+
 
 Convolutional neural networks (CNNs) is a type of deep learning model that is best for image processing. CNNs uses a system that looks at small patches of an image, finding patterns (like edges, textures, shapes, etc.) and then builds up a complex understanding from simple patterns, image classification. 
 
