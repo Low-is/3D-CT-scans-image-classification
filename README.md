@@ -11,7 +11,7 @@ cd 3D-CT-scans-image-classification
 ## 📂 Project Structure & Data Format
 This project is designed as a generalizable framework for 3D CT scan classification tasks. While it is currently applied to lung cancer histopathological subtypes, it can be adapted to other CT-based medical imaging classification problems.
 
-## Expected Directory Structure 
+## 📁 Expected Directory Structure 
 For this lung subtype example, CT scan data should be organized by **class label (subtype/diagnosis)**, with each patient containing their own DICOM image folder.
 
 **Example Below:**
