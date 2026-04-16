@@ -11,6 +11,8 @@ def load_patient_volume(dicom_file_list):
     # sort by slice order
     slices.sort(key=lambda x: int(x.InstanceNumber))
 
+    # lambda x: is the start of an anonymous function
+
     # stack into 3D volume (D, H, W)
     volume = np.stack([s.pixel_array for s in slices], axis=0)
 
