@@ -19,6 +19,20 @@ For this lung subtype example, CT scan data should be organized by **class label
 Class → Patient → slices
 
 
+# Training the model
+```
+# Bash
+python training/train.py
+```
+
+# Evaluating model performance
+```
+# Python
+from evaluation.metrics import evalulate_model
+
+results = evalulate_model(model, x_test, y_test_cat)
+```
+
 Convolutional neural networks (CNNs) is a type of deep learning model that is best for image processing. CNNs uses a system that looks at small patches of an image, finding patterns (like edges, textures, shapes, etc.) and then builds up a complex understanding from simple patterns, image classification. 
 
 A typical CNN has 3 major building blocks:
