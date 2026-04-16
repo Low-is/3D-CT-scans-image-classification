@@ -14,22 +14,7 @@ This project is designed as a generalizable framework for 3D CT scan classificat
 ## Expected Directory Structure 
 For this lung subtype example, CT scan data should be organized by **class label (subtype/diagnosis)**, with each patient containing their own DICOM image folder.
 **Example Below:**
-data/
-│
-├── Class_1/
-│   ├── Patient_001/
-│   │   ├── image_001.dcm
-│   │   ├── image_002.dcm
-│   │   └── ...
-│   ├── Patient_002/
-│
-├── Class_2/
-│   ├── Patient_003/
-│   │   └── ...
-│
-├── Class_3/
-│
-└── Class_4/
+Class → Patient → slices
 
 
 Convolutional neural networks (CNNs) is a type of deep learning model that is best for image processing. CNNs uses a system that looks at small patches of an image, finding patterns (like edges, textures, shapes, etc.) and then builds up a complex understanding from simple patterns, image classification. 
