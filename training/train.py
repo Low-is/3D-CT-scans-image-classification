@@ -105,7 +105,7 @@ def main():
     np.save(os.path.join(data_dir, "y_test_cat.npy"), y_test_cat)
 
     with open(os.path.join(log_dir, "history.json"), "w") as f:
-    json.dump(history.history, f)
+        json.dump(history.history, f)
 
 
 if __name__ == "__main__":
