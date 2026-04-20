@@ -1,8 +1,8 @@
 import numpy as np
 
 # To access other Python scripts and their functions, make sure both files are in the same folder
-from dicom_loader import group_dicom_files
-from preprocessing import (
+from data_pipeline.dicom_loader import group_dicom_files
+from data_pipeline.preprocessing import (
     load_patient_volume,
     z_normalize,
     resize_volume
