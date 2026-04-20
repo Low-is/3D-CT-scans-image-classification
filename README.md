@@ -23,7 +23,7 @@ venv\Scripts\activate # Windows
 ## Install dependencies
 ```
 # Bash
-pip install numpy keras tensorflow scikit-learn pydicom scikit-image matplotlib pyyaml
+pip install -r requirements.txt
 ```
 
 ## Run training/train.py script
