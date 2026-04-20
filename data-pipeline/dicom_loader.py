@@ -1,8 +1,6 @@
 from collections import defaultdict
 import os
 
-# Group files by subtype and patient
-dicom_folder_path = r"\\ifs.win.uthscsa.edu\M1509-AhujaS\MainShare\Lois\Lois_Local\Dr_M\Projects\Rashmi\Lung-PET-CT-Dx\Lung-PET-CT-Dx"
 
 def group_dicom_files(dicom_folder_path):
   """
