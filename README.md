@@ -46,7 +46,7 @@ pip install -r requirements.txt
 ```
 # Bash
 
-python -m training.train.py
+python -m training.train
 ```
 
 # Load trained model + evaluation data
