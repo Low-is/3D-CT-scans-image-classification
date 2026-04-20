@@ -1,5 +1,6 @@
 import yaml
 import json
+import sys
 import os
 import numpy as np
 import keras
@@ -10,6 +11,8 @@ from sklearn.utils.class_weight import compute_class_weight
 # As long as Python knows the root folder '3D-CT-scans-image-classification/...', other scripts and their functions can be accessed
 from models.cnn_3d import get_model
 from dataset import build_dataset
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 
