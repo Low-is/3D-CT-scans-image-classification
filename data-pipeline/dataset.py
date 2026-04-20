@@ -11,8 +11,14 @@ from preprocessing import (
 # Frameworks like TensorFlow/Keras expect input like:
 # (batch_size, H, W, D, channels)
 
-def build_dataset():
-    dicom_files_grouped = group_dicom_files()
+def build_dataset(config):
+    # -----------------------
+    # LOAD PATH FROM CONFIG
+    # -----------------------
+    dataset_path = config["data"]["dataset_path"]
+    target_shape = tuple(config["data"]["image_shape"])
+    
+    dicom_files_grouped = group_dicom_files(dataset_path)
 
     volumes = []
     labels = []
@@ -22,12 +28,23 @@ def build_dataset():
 
     for subtype, patients in dicom_files_grouped.items():
         for patient, files in patients.items():
+            if len(files) == 0:
+                continue
 
             volume = load_patient_volume(files)
-            volume = z_normalize(volume)
-            volume = resize_volume(volume)
 
-            volume = np.expand_dims(volume, axis=-1)
+            # -----------------------
+            # NORMALIZATION (CONFIG)
+            # -----------------------
+            if config["preprocessing"]["normalize"] == "z-score":
+                volume = z_normalize(volume)
+
+            # -----------------------
+            # RESIZE (CONFIG SHAPE)
+            # -----------------------
+            volume = resize_volume(volume, target_shape)
+
+            volume = np.expand_dims(volume, axis=-1) # Adding channel dim
 
             volumes.append(volume)
             labels.append(subtype_to_label[subtype])
