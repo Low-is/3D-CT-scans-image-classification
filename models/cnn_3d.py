@@ -38,9 +38,10 @@ def get_model(config, width=128, height=128, depth=64):
     x = layers.BatchNormalization()(x)
 
     # Block 4
-    x = layers.Conv3D(filters[3], kernel_size, activation="relu")(x)
-    x = layers.MaxPool3D(2)(x)
-    x = layers.BatchNormalization()(x)
+    # NOTE: Since working with smaller datasets, removing this layer to prevent overfitting
+    #x = layers.Conv3D(filters[3], kernel_size, activation="relu")(x)
+    #x = layers.MaxPool3D(2)(x)
+    #x = layers.BatchNormalization()(x)
 
     # Head
     x = layers.GlobalAveragePooling3D()(x)
