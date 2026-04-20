@@ -1,11 +1,42 @@
 # Multi-image classification with 3D CT scans using CNN
 
-# Clone repo
+## Create project folder
+```
+# Bash
+mkdir lung-ct-cnn
+cd lung-ct-cnn
+```
+
+## Clone GitHub repo
 
 ```
 # Bash
 git clone https://github.com/ow-is/3D-CT-scans-image-classification.git
 cd 3D-CT-scans-image-classification
+```
+
+## Create Python environment inside repo 
+```
+# Bash
+python -m venv venv
+```
+
+## Activate Python environment
+```
+# Bash
+venv\Scripts\activate
+```
+
+## Install dependencies
+```
+# Bash
+pip install numpy keras tensorflow scikit-learn pydicom scikit-image matplotlib pyyaml
+```
+
+## Run training/train.py script
+```
+# Bash
+python training/train.py
 ```
 
 ## 📂 Project Structure & Data Format
