@@ -8,12 +8,11 @@ from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 # As long as Python knows the root folder '3D-CT-scans-image-classification/...', other scripts and their functions can be accessed
 from models.cnn_3d import get_model
 from data_pipeline.dataset import build_dataset
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 
 
 def main():
@@ -47,8 +46,6 @@ def main():
     y_train_cat = to_categorical(y_train)
     y_test_cat = to_categorical(y_test)
 
-    num_classes = y_train_cat.shape[1]
-
     # -----------------------
     # CLASS WEIGHTS
     # -----------------------
@@ -64,7 +61,7 @@ def main():
     # -----------------------
     width, height, depth = config["data"]["image_shape"]
     
-    model = get_model(width, height, depth, num_classes)
+    model = get_model(config, width, height, depth)
 
     lr_schedule = keras.optimizers.schedules.ExponentialDecay(
         config["training"]["learning_rate"],
