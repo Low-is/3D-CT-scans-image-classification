@@ -24,7 +24,7 @@ python -m venv venv
 ## Activate Python environment
 ```
 # Bash
-venv\Scripts\activate
+venv\Scripts\activate # Windows
 ```
 
 ## Install dependencies
