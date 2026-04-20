@@ -27,7 +27,7 @@ def main():
     # -----------------------
     # LOAD DATA
     # -----------------------
-    x, y = build_dataset()
+    x, y = build_dataset(config)
 
     x_train, x_test, y_train, y_test = train_test_split(
         x, y,
