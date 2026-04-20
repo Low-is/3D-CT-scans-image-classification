@@ -2,7 +2,7 @@ import keras
 from keras import layers
 
 
-def get_model(config, width=128, height=128, depth=64, num_classes=4):
+def get_model(config, width=128, height=128, depth=64):
     """
     3D CNN for volumetric classification.
     Input shape: (width, height, depth, 1)
