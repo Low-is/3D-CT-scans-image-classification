@@ -14,7 +14,7 @@ Class → Patient → slices
 
 ```
 # Bash
-git clone https://github.com/ow-is/3D-CT-scans-image-classification.git
+git clone https://github.com/Low-is/3D-CT-scans-image-classification.git
 cd 3D-CT-scans-image-classification
 ```
 
