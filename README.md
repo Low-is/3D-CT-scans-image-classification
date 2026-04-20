@@ -17,7 +17,8 @@ python -m venv venv
 ## Activate Python environment
 ```
 # Bash
-venv\Scripts\activate # Windows
+source venv/Scripts/activate # For Git Bash
+.\venv\Scripts\Activate # For WindowsPowerShell
 ```
 
 ## Install dependencies
