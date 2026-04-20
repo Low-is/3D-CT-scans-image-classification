@@ -14,6 +14,7 @@ Class → Patient → slices
 
 ```
 # Bash
+
 git clone https://github.com/Low-is/3D-CT-scans-image-classification.git
 cd 3D-CT-scans-image-classification
 ```
@@ -21,12 +22,14 @@ cd 3D-CT-scans-image-classification
 ## Create Python environment inside repo 
 ```
 # Bash
+
 python -m venv venv
 ```
 
 ## Activate Python environment
 ```
 # Bash
+
 source venv/Scripts/activate # For Git Bash, use this one
 
 .\venv\Scripts\Activate # For WindowsPowerShell
@@ -35,18 +38,21 @@ source venv/Scripts/activate # For Git Bash, use this one
 ## Install dependencies
 ```
 # Bash
+
 pip install -r requirements.txt
 ```
 
 ## Run training/train.py script
 ```
 # Bash
+
 python -m training.train.py
 ```
 
 # Load trained model + evaluation data
 ```
 # Python
+
 import numpy as np
 import json
 from tensorflow import keras
@@ -65,6 +71,7 @@ history = json.load(f)
 # Visualizae CT scan slices (optional)
 ```
 # Python
+
 from dataset import build_dataset
 from evaluation.plots import plot_volume_slices
 
@@ -77,6 +84,7 @@ plot_volume_slices(x[0])
 # Evalulate model performance
 ```
 # Python
+
 from evaluation.metrics import evaluate_model
 
 results = evaluate_model(model, x_test, y_test_cat)
@@ -87,6 +95,7 @@ print(results)
 # Plot results
 ```
 # Python
+
 from evaluation.plots import (
 plot_training_history,
 plot_confusion_matrix
