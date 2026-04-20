@@ -37,10 +37,10 @@ augmentation:
 # =========================
 model:
   type: "3D_CNN"
-  filters: [64, 64, 128, 256]
+  filters: [16, 32, 64]
   kernel_size: 3
-  dropout: 0.3
-  dense_units: 512
+  dropout: 0.5
+  dense_units: 128
 
 # =========================
 # TRAINING
