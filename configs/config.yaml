@@ -68,4 +68,5 @@ callbacks:
 output:
   model_dir: "models/"
   save_best_only: true
-  log_dir: "logs/"
+  data_dir: "artifacts/data/"
+  log_dir: "artifacts/logs/"
