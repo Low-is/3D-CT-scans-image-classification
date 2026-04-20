@@ -1,4 +1,5 @@
 import json
+import os
 import numpy as np
 import keras
 from keras.utils import to_categorical
@@ -14,15 +15,21 @@ from dataset import build_dataset
 def main():
 
     # -----------------------
+    # LOAD CONFIG
+    # -----------------------
+    with open("configs/config.yaml", "r") as f:
+        config = yaml.safe_load(f)
+
+    # -----------------------
     # LOAD DATA
     # -----------------------
     x, y = build_dataset()
 
     x_train, x_test, y_train, y_test = train_test_split(
         x, y,
-        test_size=0.3,
-        random_state=42,
-        stratify=y
+        test_size=config["split"]["test_size"],
+        random_state=config["split"]["random_state"],
+        stratify=y if config["split"]["stratify"] else None
     )
 
     y_train_cat = to_categorical(y_train)
@@ -43,15 +50,19 @@ def main():
     # -----------------------
     # MODEL
     # -----------------------
-    model = get_model(128, 128, 64, num_classes)
+    width, height, depth = config["data"]["image_shape"]
+    
+    model = get_model(width, height, depth, num_classes)
 
     lr_schedule = keras.optimizers.schedules.ExponentialDecay(
-        1e-4, decay_steps=100000, decay_rate=0.96
+        config["training"]["learning_rate"],
+        decay_steps=100000,
+        decay_rate=0.96
     )
 
     model.compile(
         optimizer=keras.optimizers.Adam(learning_rate=lr_schedule),
-        loss="categorical_crossentropy",
+        loss=config["training"]["loss"],
         metrics=["accuracy"]
     )
 
@@ -59,25 +70,41 @@ def main():
     # TRAIN
     # -----------------------
     history = model.fit(
-        x_train, y_train_cat,
+        x_train,
+        y_train_cat,
         validation_data=(x_test, y_test_cat),
-        epochs=50,
-        batch_size=2,
+        epochs=config["training"]["epochs"],
+        batch_size=config["training"]["batch_size"],
         class_weight=class_weights_dict
     )
+
+
+    # -----------------------
+    # CREATING DIRECTORIES
+    # -----------------------
+    model_dir = config["output"]["model_dir"]
+    data_dir = config["output"]["data_dir"]
+    log_dir = config["output"]["log_dir"]
+
+    os.makedirs(model_dir, exist_ok=True)
+    os.makedirs(data_dir, exist_ok=True)
+    os.makedirs(log_dir, exist_ok=True)
+    
 
     # -----------------------
     # SAVE
     # -----------------------
-    model.save("3dcnn_final.keras")
-    np.save("x_train.npy", x_train)
-    np.save("x_test.npy", x_test)
-    np.save("y_train.npy", y_train)
-    np.save("y_test.npy", y_test)
-    np.save("y_test_cat.npy", y_test_cat)
-    
-    with open("history.json", "w") as f:
-        json.dump(history.history, f)
+
+    model.save(os.path.join(model_dir, "3dcnn_final.keras"))
+
+    np.save(os.path.join(data_dir, "x_train.npy"), x_train)
+    np.save(os.path.join(data_dir, "x_test.npy"), x_test)
+    np.save(os.path.join(data_dir, "y_train.npy"), y_train)
+    np.save(os.path.join(data_dir, "y_test.npy"), y_test)
+    np.save(os.path.join(data_dir, "y_test_cat.npy"), y_test_cat)
+
+    with open(os.path.join(log_dir, "history.json"), "w") as f:
+    json.dump(history.history, f)
 
 
 if __name__ == "__main__":
