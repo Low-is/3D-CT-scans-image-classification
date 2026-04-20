@@ -81,6 +81,8 @@ def main():
     # -----------------------
     # TRAIN
     # -----------------------
+    print("🧠 TRAINING MODEL")
+    
     history = model.fit(
         x_train,
         y_train_cat,
@@ -89,6 +91,7 @@ def main():
         batch_size=config["training"]["batch_size"],
         class_weight=class_weights_dict
     )
+    print("TRAINING FINISHED")
 
 
     # -----------------------
