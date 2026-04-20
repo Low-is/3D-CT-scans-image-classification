@@ -1,12 +1,5 @@
 # Multi-image classification with 3D CT scans using CNN
 
-## Create project folder
-```
-# Bash
-mkdir lung-ct-cnn
-cd lung-ct-cnn
-```
-
 ## Clone GitHub repo
 
 ```
