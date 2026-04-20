@@ -72,7 +72,7 @@ history = json.load(f)
 ```
 # Python
 
-from dataset import build_dataset
+from data_pipeline.dataset import build_dataset
 from evaluation.plots import plot_volume_slices
 
 x, y = build_dataset()  
