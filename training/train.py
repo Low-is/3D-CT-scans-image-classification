@@ -21,13 +21,21 @@ def main():
     # -----------------------
     # LOAD CONFIG
     # -----------------------
+    print("😭 START: loading config")
+    
     with open("configs/config.yaml", "r") as f:
         config = yaml.safe_load(f)
+
+    print("🥲 CONFIG LOADED")
 
     # -----------------------
     # LOAD DATA
     # -----------------------
+    print("📦 START DATASET LOADING")
+    
     x, y = build_dataset(config)
+
+    print("✅ DATASET LOADED")
 
     x_train, x_test, y_train, y_test = train_test_split(
         x, y,
