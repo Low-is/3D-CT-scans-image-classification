@@ -12,7 +12,6 @@ data:
 # =========================
 preprocessing:
   normalize: "z-score"
-  resize_method: "trilinear"
   crop_or_pad: true
 
 # =========================
@@ -22,15 +21,6 @@ split:
   test_size: 0.3
   random_state: 42
   stratify: true
-
-# =========================
-# AUGMENTATION
-# =========================
-augmentation:
-  rotation: 10
-  flip: true
-  noise_std: 0.01
-  intensity_shift: 0.1
 
 # =========================
 # MODEL ARCHITECTURE
