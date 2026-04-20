@@ -30,4 +30,4 @@ def group_dicom_files(dicom_folder_path):
             
               dicom_files_grouped[subtype][patient].append(full_path)
             
-return dicom_files_grouped
+  return dicom_files_grouped
